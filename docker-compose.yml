@@ -1,0 +1,46 @@
+version: "3"
+services:
+  webserver1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: markrebs/testwebserver
+    environment:
+      - pageText=webserver1
+    ports:
+      - 20901:80
+    networks:
+      webtestnet:
+        aliases:
+          - webserver1
+  webserver2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: markrebs/testwebserver
+    environment:
+      - pageText=webserver2
+    ports:
+      - 20902:80
+    networks:
+      webtestnet:
+        aliases:
+          - webserver2
+  webserver3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: markrebs/testwebserver
+    environment:
+      - "pageText=webserver3"
+      - "useCustomPath=true"
+      - "customPath=subfolder"
+    ports:
+      - 20903:80
+    networks:
+      webtestnet:
+        aliases:
+          - webserver3
+networks:
+  webtestnet:
+    driver: nat
